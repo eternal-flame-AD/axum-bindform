@@ -1,0 +1,35 @@
+[package]
+name = "axum-bindform"
+version = "0.1.0"
+edition = "2021"
+
+authors = ["eternal-flame-AD"]
+description = "Bind XML, JSON, URL-encoded or query-string form data in Axum."
+license = "Apache-2.0"
+repository = "https://github.com/eternal-flame-AD/axum-bindform"
+keywords = ["Axum", "JSON", "XML", "URL-encoded", "form"]
+categories = ["network-programming"]
+readme = "README.md"
+
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+axum = "0.6.19"
+mime = "0.3.17"
+reqwest = { version = "0.11.18", optional = true, features = ["json"] }
+serde = "1.0.175"
+serde-xml-rs = { version = "0.6.0", optional = true }
+serde_json = { version = "1.0.103", optional = true }
+serde_urlencoded = { version = "0.7.1", optional = true }
+thiserror = "1.0.44"
+tokio = { version = "1.29.1", features = ["rt", "rt-multi-thread", "macros"], optional = true }
+
+[features]
+default = ["json", "urlencoded"]
+full = ["json", "xml", "urlencoded"]
+testing = ["full", "dep:tokio", "dep:reqwest", "serde/derive"]
+json = ["dep:serde_json"]
+xml = ["dep:serde-xml-rs"]
+urlencoded = ["dep:serde_urlencoded"]
+
